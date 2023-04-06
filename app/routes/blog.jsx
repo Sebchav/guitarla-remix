@@ -3,6 +3,13 @@ import { getPosts } from "~/models/posts.server"
 import Post from "../components/post";
 import styles from "~/styles/blog.css"
 
+export function meta(){
+  return [
+      { title: "GuitarLA - Nuestro Blog"},
+      { descripcion: "GuitarLA, Blog de música y venta de guitarras"}
+  ]
+}
+
 export function links(){
   return [
     {
