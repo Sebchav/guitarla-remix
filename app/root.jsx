@@ -1,3 +1,5 @@
+import { useState } from "react"
+
 import {
     Meta,
     Links,
@@ -48,11 +50,31 @@ export function links(){
 }
 
 export default function App(){
+
+    const [carrito, setCarrito] = useState([])
+
+    const agregarCarrito= guitarra=>{
+        if(carrito.some(guitarraState => guitarraState.id === guitarra.id)){
+            const carritoActualizado = carrito.map(guitarraState => {
+                if(guitarraState.id === guitarra.id){
+                    guitarraState.cantidad = guitarra.cantidad
+                }
+                return guitarraState;
+            })
+
+            setCarrito(carritoActualizado);
+
+        } else{
+            setCarrito([...carrito, guitarra])
+        }
+    }
+
     return(
         <Document>
             <Outlet
                 context={{
-                   
+                   agregarCarrito,
+                   carrito
                 }}
             />
         </Document>
