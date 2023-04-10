@@ -1,3 +1,4 @@
+import { useState, useEffect } from "react"
 import { useOutletContext } from "@remix-run/react"
 import styles from "~/styles/carrito.css"
 
@@ -18,8 +19,14 @@ export function meta(){
 }
 
 function Carrito() {
-    const { carrito, actualizarCantidad } = useOutletContext()
+    const [total, setTotal] = useState(0)
+    const { carrito, actualizarCantidad, eliminarGuitarra } = useOutletContext()
     
+    useEffect(()=>{
+        const calculoTotal = carrito.reduce((total, producto)=> total + (producto.cantidad*producto.precio), 0)
+        setTotal(calculoTotal)
+    }, [carrito])
+
   return (
     <main className="contenedor">
         <h1 className="heading">Carrito de Compras</h1>
@@ -27,8 +34,8 @@ function Carrito() {
         <div className="contenido">
             <div className="carrito">
                 <h2>Articulos</h2>
-                {carrito.length === 0 ? "Carrito Vacio" : (
-                    carrito.map(producto => (
+                {carrito?.length === 0 ? "Carrito Vacio" : (
+                    carrito?.map(producto => (
                         <div key={producto.id} className="producto">
                             <div>
                                 <img src={producto.imagen} alt={`Imagen del producto ${producto.nombre}`} />
@@ -56,13 +63,19 @@ function Carrito() {
                                 <p className="precio">$ <span>{producto.precio}</span></p>
                                 <p className="subtotal">Subtotal: $ <span>{producto.precio * producto.cantidad}</span></p>
                             </div>
+
+                            <button
+                                type="button"
+                                className="btn_eliminar"
+                                onClick={() => eliminarGuitarra(producto.id)}
+                            >X</button>
                         </div>
                     ))
                 )}
             </div>
             <aside className="resumen">
                 <h3>Resumen del Pedido</h3>
-                <p>Total a pagar: $</p>
+                <p>Total a pagar: ${total}</p>
             </aside>
         </div>
 
