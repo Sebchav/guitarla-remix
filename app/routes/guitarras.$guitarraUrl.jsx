@@ -1,4 +1,4 @@
-import { useLoaderData } from "@remix-run/react";
+import { useLoaderData, useOutletContext } from "@remix-run/react";
 import { useState } from "react"
 import { getGuitarra } from "~/models/guitarras.server"
 import styles from "~/styles/guitarras.css"
@@ -47,6 +47,8 @@ export function links(){
 
 function Guitarra() {
 
+    const data = useOutletContext();
+    console.log(data);
     const [cantidad, setCantidad] = useState(0);
     const guitarra = useLoaderData();
     const { nombre, descripcion, imagen, precio} = guitarra.data[0].attributes

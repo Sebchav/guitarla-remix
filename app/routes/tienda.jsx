@@ -1,4 +1,4 @@
-import { useLoaderData } from "@remix-run/react"
+import { useLoaderData, useOutletContext } from "@remix-run/react"
 import { getGuitarras } from "~/models/guitarras.server"
 import styles from "~/styles/guitarras.css"
 import ListadoGuitarras from "../components/listado-guitarras"
@@ -27,6 +27,8 @@ export async function loader(){
 
 function Tienda() {
 
+  const data= useOutletContext();
+  console.log(data);
   const guitarras = useLoaderData();
   
 
