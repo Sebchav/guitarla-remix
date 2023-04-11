@@ -14,7 +14,6 @@ import {
 import styles from "~/styles/index.css"
 import Header from "~/components/header";
 import Footer from "~/components/footer";
-import Carrito from "./routes/carrito";
 
 export function meta() {
     return [
